@@ -37,9 +37,15 @@ export const ContainerItems = styled.div`
     .custom-input{
         background-color: rgba(0, 0, 0, 0);
         color: ${Colors.WhiteColor};
+        border: 2px solid ${Colors.WhiteColor};
         
         &::placeholder{
             color: rgba(255, 255, 255, 0.4);
+        }
+
+        &:focus{
+            box-shadow: none;
+            border: 2px solid ${Colors.PrimaryColor};
         }
     }
 
