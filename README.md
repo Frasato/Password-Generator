@@ -6,7 +6,7 @@
     <strong>Password Generator</strong>
     <br />
     <br />
-    <img src="./public/temp.png" alt="Site Template"/>
+    <img src="https://photos.fife.usercontent.google.com/pw/AP1GczNXgAOHNOi09gBXLbEGQJbBPggmkD545zvkmssrnz8XA1ole2_oRrMO=w1919-h909-s-no-gm?authuser=0" alt="Site Template"/>
   </div>
 </div>
 
