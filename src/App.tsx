@@ -11,9 +11,29 @@ function App() {
 
   const [selected, setSelected] = useState<string>('');
   const [lengthPass, setLengthPass] = useState<string>('');
+  const [passwordText, setPasswordText] = useState<string>('');
 
   const handleSelect = (event: string | null) => setSelected(event || '');
   const handleLength = (event: React.ChangeEvent<HTMLInputElement>) => setLengthPass(event.target.value);
+
+  const handleGeneratePassword = async() =>{
+    if(selected == 'complete' && lengthPass != ''){      
+      const response = await fetch(`http://localhost:8080/complete/${lengthPass}`);
+      const responseData = await response.text();
+      setPasswordText(responseData);
+    }
+    if(selected == 'numeric' && lengthPass != ''){      
+      const response = await fetch(`http://localhost:8080/numeric/${lengthPass}`);
+      const responseData = await response.text();
+      setPasswordText(responseData);
+    }
+    if(selected == 'alfanum' && lengthPass != ''){      
+      const response = await fetch(`http://localhost:8080/alfanum/${lengthPass}`);
+      const responseData = await response.text();
+      setPasswordText(responseData);
+    }
+    
+  }
 
   return (
     <>
@@ -21,7 +41,7 @@ function App() {
         <ContainerImage></ContainerImage>
         <ContainerItems>
           <Text>Your Password:</Text>
-          <PasswordText>asndPSNaojfnPOANFW02NSOD121231231SDS</PasswordText>
+          <PasswordText>{passwordText}</PasswordText>
           <InputGroup className="mb-3 custom-input_group">
             <DropdownButton
               variant="outline-secondary"
@@ -35,7 +55,7 @@ function App() {
             </DropdownButton>
             <Form.Control aria-label="Text input with dropdown button" className="custom-input" placeholder="Length 8-50" onChange={handleLength} value={lengthPass}/>
           </InputGroup>
-          <Button as="input" type="button" value="Generate" className="btn-custom"/>
+          <Button as="input" type="button" value="Generate" className="btn-custom" onClick={handleGeneratePassword}/>
         </ContainerItems>
       </Container>
     </>
