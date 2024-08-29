@@ -4,6 +4,7 @@
 <div align="center">
   <strong>Password Generator</strong>
 </div>
+<br/>
 
 ![Web Site Template](./public/temp.png)
 
