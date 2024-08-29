@@ -1,11 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, ContainerImage, ContainerItems, Text } from './App.styles';
+import { Container, ContainerImage, ContainerItems, Text, PasswordText } from './App.styles';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
-import Badge from 'react-bootstrap/Badge';
 import { useState } from 'react';
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
         <ContainerImage></ContainerImage>
         <ContainerItems>
           <Text>Your Password:</Text>
-          <Badge bg="secondary" className="password-custom">asndPSNaojfnPOANFW02NSOD121231231SDS</Badge>
+          <PasswordText>asndPSNaojfnPOANFW02NSOD121231231SDS</PasswordText>
           <InputGroup className="mb-3 custom-input_group">
             <DropdownButton
               variant="outline-secondary"

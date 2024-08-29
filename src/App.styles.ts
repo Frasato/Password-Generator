@@ -8,26 +8,30 @@ export const Container = styled.div`
 `;
 
 export const ContainerImage = styled.div`
-    flex-grow: 1;
+    flex-grow: 0;
     background-image: url(${image});
     background-position: center;
     background-size: cover;
+
+    @media screen and (min-width: 768px){
+        flex-grow: 10;
+    }
+
+    @media screen and (min-width: 1024px){
+        flex-grow: 1;
+    }
 `;
 
 export const ContainerItems = styled.div`
-    height: 600px;
-    width: 600px;
+    height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 100px;
+    
     gap: 10px;
     flex-grow: 0.4;
-
-    .password-custom{
-        font-size: 1.4rem;
-    }
 
     .custom-input_group{
         margin: 20px 0 0 0;
@@ -59,6 +63,18 @@ export const ContainerItems = styled.div`
         border: 3px solid ${Colors.PrimaryColor};
         color: ${Colors.WhiteColor};
     }
+
+    @media screen and (min-width: 768px){
+        width: 600px;
+    }
+`;
+
+export const PasswordText = styled.p`
+    background-color: ${Colors.GrayColor};
+    padding: 10px;
+    border-radius: 10px;
+    color: ${Colors.WhiteColor};
+    font-weight: bold;
 `;
 
 export const Text = styled.h2`
