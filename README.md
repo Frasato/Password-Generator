@@ -2,13 +2,10 @@
 
 
 <div align="center">
-  <div align="center">
-    <strong>Password Generator</strong>
-    <br />
-    <br />
-    <img src="https://images7.alphacoders.com/135/1358907.png" alt="Site Template"/>
-  </div>
+  <strong>Password Generator</strong>
 </div>
+
+![Web Site Template](./public/temp.png)
 
 #### technologies used
 - ```Java 21```
