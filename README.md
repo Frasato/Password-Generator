@@ -1,50 +1,117 @@
-# React + TypeScript + Vite
+##### :hammer: developing
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+<div align="center">
+  <div align="center">
+    <strong>Password Generator</strong>
+    <br />
+    <br />
+    <img src="./public/temp.png" alt="Site Template"/>
+  </div>
+</div>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### technologies used
+- ```Java 21```
+- ```Spring Boot 3.3.3```
+- ```Vite```
+- ```React```
+- ```Typescript```
+- ```Bootstrap 5```
+- ```Styled-Components```
 
-## Expanding the ESLint configuration
+## What is Password Generator
+<p>Just like the name, this is an automatic password generator to create strong passwords that fit any website.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The API used can generate 3 types of passwords:</p>
+<ul>
+  <li>Complete, with: A, B, C, d, e, f, 1, 2, 3, #, &, $...</li>
+  <li>Numeric, with: 1, 2, 3, 4, 5, 6, 7...</li>
+  <li>Complete, with: A, B, C, d, e, f, 1, 2, 3...</li>
+</ul>
+<p>Simple, useful and strong for everywhere.</p>
 
-- Configure the top-level `parserOptions` property like this:
+<hr/>
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+#### API
+<p>An API created with Java 21 and Spring Boot, using Maven as the project structure.</p>
+<p>There are 3 routes to generate passwords and return the value</p>
+
+```java
+  @GetMapping("/complete/{length}")
+    public ResponseEntity<String> generateCompletePassword(@PathVariable(value = "length") int passwordLength){
+        if(passwordLength < 8){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Length to small, minimum is 8!");
+        }else if(passwordLength > 50){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("To long, max is 50!");
+        }
+        String[] tempPass = new String[passwordLength];
+        for(int n = 0; n < passwordLength; n++){
+            tempPass[n] = completeGenPassword[random.nextInt(92)];
+        }
+        String newPassword = String.join("", tempPass);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newPassword);
+    }
+```
+<p>All routes generate a function that generates your password based on an array of characters 
+and return an http response and a body with the generated password</p>
+
+`Still want to develop a database that saves the last 10 passwords generated and an account for you to have access to them`
+
+<hr/>
+
+#### Front End
+<p>For the front end, I chose a technology that I feel more comfortable creating, such as react with typescript, however, for styling, I decided to use Bootstrap 5, which I'm not so familiar with.</p>
+<p>I used some bootstrap components to make development easier and faster.</p>
+
+```tsx
+  import 'bootstrap/dist/css/bootstrap.min.css';
+  import Dropdown from 'react-bootstrap/Dropdown';
+  import DropdownButton from 'react-bootstrap/DropdownButton';
+  import Form from 'react-bootstrap/Form';
+  import InputGroup from 'react-bootstrap/InputGroup';
+  import Button from 'react-bootstrap/Button';
+
+  <InputGroup className="mb-3 custom-input_group">
+    <DropdownButton
+      variant="outline-secondary"
+      title={selected || "Option"}
+      id="btn-custom"
+      onSelect={handleSelect}
+    >
+      <Dropdown.Item eventKey="complete">Complete Password</Dropdown.Item>
+      <Dropdown.Item eventKey="numeric">Numeric Password</Dropdown.Item>
+      <Dropdown.Item eventKey="alfanum">Alfa Numeric Password</Dropdown.Item>
+    </DropdownButton>
+    <Form.Control aria-label="Text input with dropdown button" className="custom-input" placeholder="Length 8-50" onChange={handleLength} value={lengthPass}/>
+    </InputGroup>
+```
+<p>
+I also used Styled Components to create some more customizable components and edit Bootstrap components to suit the site</p>
+<p>To consume my API I created an asynchronous function <strong>async</strong> and within 3 if's to check which route I would send the request</p>
+
+```tsx
+  const handleGeneratePassword = async() =>{
+    if(selected == 'complete' && lengthPass != ''){      
+      const response = await fetch(`http://localhost:8080/complete/${lengthPass}`);
+      const responseData = await response.text();
+      setPasswordText(responseData);
+    }
+    if(selected == 'numeric' && lengthPass != ''){      
+      const response = await fetch(`http://localhost:8080/numeric/${lengthPass}`);
+      const responseData = await response.text();
+      setPasswordText(responseData);
+    }
+    if(selected == 'alfanum' && lengthPass != ''){      
+      const response = await fetch(`http://localhost:8080/alfanum/${lengthPass}`);
+      const responseData = await response.text();
+      setPasswordText(responseData);
+    }
+  }
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## How to see the project
+<p>
+Download the project to your machine, open the api folder and run the file <strong>ApiApplication.java</strong> on yout IDE</p>
+<p>After you can run the front end to see the project running in your web with the command:</p>
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+`npm run dev`
